@@ -161,26 +161,26 @@ BEGIN
 
 	SET @start_time=GETDATE();
 
-	PRINT '>> Truncating table:silver.erp_px_cat_g1v2'
-	TRUNCATE TABLE silver.erp_px_cat_g1v2;
-	PRINT '>> Inserting into the table:silver.erp_px_cat_g1v2'
+PRINT '>> Truncating table:silver.erp_loc_a101'
+TRUNCATE TABLE silver.erp_loc_a101
+PRINT '>> Inserting into the table:silver.erp_loc_a101'
 
-	INSERT INTO  silver.erp_loc_a101(
-	cid,
-	cntry
-	)
-	SELECT 
-	REPLACE(cid,'-','') cid,
-	CASE WHEN TRIM(cntry)='DE'THEN 'Germany'
-		 WHEN TRIM(cntry) IN('US','USA') THEN 'United States'
-		 WHEN TRIM(cntry)='' or cntry IS NULL THEN 'n/a'
-		 ELSE TRIM(cntry)
-	END AS cntry
-	FROM bronze.erp_loc_a101;
-	SET @end_time=GETDATE();
-	PRINT 'Loading Duration: ' + CAST(DATEDIFF(second,@start_time,@end_time)AS NVARCHAR)+ ' Seconds';
+INSERT INTO  silver.erp_loc_a101(
+cid,
+cntry
+)
+SELECT 
+REPLACE(cid,'-','') cid,
+CASE WHEN TRIM(cntry)='DE'THEN 'Germany'
+	 WHEN TRIM(cntry) IN('US','USA') THEN 'United States'
+	 WHEN TRIM(cntry)='' or cntry IS NULL THEN 'n/a'
+	 ELSE TRIM(cntry)
+END AS cntry
+FROM bronze.erp_loc_a101;
+SET @end_time=GETDATE();
+PRINT 'Loading Duration: ' + CAST(DATEDIFF(second,@start_time,@end_time)AS NVARCHAR)+ ' Seconds';
 
-	--SELECT * FROM silver.erp_loc_a101;
+--SELECT * FROM silver.erp_loc_a101;
 	---------------------------------------------------
 	SET @start_time=GETDATE();
 
